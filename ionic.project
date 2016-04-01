@@ -1,0 +1,13 @@
+{
+  "name": "H4: Daniel Suchý",
+  "app_id": "23ea3d3a",
+  "gulpStartupTasks": [
+    "sass",
+    "scripts",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
+}
