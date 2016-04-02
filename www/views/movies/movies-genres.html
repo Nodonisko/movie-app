@@ -1,0 +1,26 @@
+<ion-view title="Movies by genre" id="view-movies-genres-list" hide-back-button="true">
+    <ion-nav-buttons side="right">
+        <button class="button button-icon" ui-sref="movies()">
+            <i class="icon ion-film-marker"></i>
+        </button>
+    </ion-nav-buttons>
+    <ion-content class="has-header">
+        <label class="item item-input item-select">
+            <div class="input-label">
+                Genre
+            </div>
+            <select ng-model="data.activeGenre">
+                <option ng-repeat="genre in data.genres" value="{{genre.id}}">{{genre.name}}</option>
+            </select>
+        </label>
+        {{activeGenre}}
+        <ion-list>
+            <ion-item class="item-avatar" ng-repeat="movie in data.movies | filter: searchString | orderBy:order" color-rate="{{movie.vote_average}}" ui-sref="movies-detail({'id': movie.id})">
+                <img class="fit-thumbnail" ng-src="http://image.tmdb.org/t/p/w500/{{movie.backdrop_path}}">
+                {{movie.title}}
+                <p>{{movie.vote_average}}</p>
+            </ion-item>
+        </ion-list>
+
+    </ion-content>
+</ion-view>

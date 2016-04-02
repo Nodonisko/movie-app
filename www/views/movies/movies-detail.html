@@ -1,0 +1,37 @@
+<ion-view title="{{movie.title}}" id="view-movies-detail">
+    <ion-content>
+        <ion-slide-box>
+            <ion-slide ng-repeat="image in movie.images.backdrops | orderBy: image.vote_average | limitTo: 4">
+                <img ng-src="http://image.tmdb.org/t/p/w500/{{image.file_path}}" class="img-responsive movie-thumbnail">
+            </ion-slide>
+        </ion-slide-box>
+        <ion-list class="list-borderless">
+            <ion-item class="item-borderless" ng-click="dump()">
+                <h1>{{movie.title}}</h1>
+                <p>{{movie.release_date | date: "yyyy"}}</p>
+            </ion-item>
+            <ion-item class="item-text-wrap">
+                {{movie.overview}}
+            </ion-item>
+            <ion-item class="item-text-wrap">
+                Cast
+                <p>
+                    <span ng-repeat="cast in movie.credits.cast | limitTo: 10">{{cast.name}}{{$last ? '' : ', '}}</span>
+                </p>
+            </ion-item>
+            <ion-item class="item-text-wrap">
+                Crew
+                <p>
+                    <span ng-repeat="cast in movie.credits.crew | limitTo: 10">{{cast.name}}{{$last ? '' : ', '}}</span>
+                </p>
+            </ion-item>
+            <ion-item>{{movie.vote_average}}/10.00</ion-item>
+            <ion-item>
+                <button ng-class="isMovieWatched() ? 'ion-eye-disabled button-assertive' : 'ion-eye button-positive'" class="button icon-left button-block" ng-click="toggleWatched()">
+                    <span ng-if="!isMovieWatched()">Mark as watched</span>
+                    <span ng-if="isMovieWatched()">Unmark as watched</span>
+                </button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
