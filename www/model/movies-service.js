@@ -1,4 +1,4 @@
-app.factory("MoviesService", function (APP_CONFIG, $http, $q) {
+app.factory("MoviesService", function (APP_CONFIG, $http, $q, $resource) {
     return new (function () {
         var service = this;
 
@@ -13,21 +13,15 @@ app.factory("MoviesService", function (APP_CONFIG, $http, $q) {
         service.fetchMovies = function (page) {
             var page = page || 1;
 
-            var req = {
-                method: "GET",
-                url: APP_CONFIG.getApiUrl("moviesPopular") + '&page=' + page
-            }
+            if(page >= 5) return $q.reject('no more pages allowed');
 
-            return $http(req).then(function (response) {
-                if (!response.data.results) {
-                    console.error('error - no movies data in response', response);
-                    return $q.reject(response.data);
+            return $resource(APP_CONFIG.getApiUrl("moviesPopular") + '&page=' + page, {}, {
+                query: {
+                    isArray: false
                 }
-                console.log('call successful', response.data);
-                return response.data.results;
-            }, function (error) {
-                console.error('error', error);
-                return $q.reject(error);
+            }).query().$promise.then(function (result) {
+                console.log(result.results);
+                return result.results;
             });
         }
 
@@ -36,22 +30,11 @@ app.factory("MoviesService", function (APP_CONFIG, $http, $q) {
          * @param {int} movie id
          */
         service.fetchMovieDetail = function (id) {
-            var req = {
-                method: "GET",
-                url: APP_CONFIG.getApiUrl("movieDetail", id) + "&append_to_response=credits,images",
-            }
-
-            return $http(req).then(function (response) {
-                if (!response.data) {
-                    console.error('error - no movie data in response', response);
-                    return $q.reject(response.data);
+            return $resource(APP_CONFIG.getApiUrl("movieDetail", id) + "&append_to_response=credits,images", {}, {
+                query: {
+                    isArray: false
                 }
-                console.log('call successful', response.data);
-                return response.data;
-            }, function (error) {
-                console.error('error', error);
-                return $q.reject(error);
-            });
+            }).query().$promise;
         }
 
         /**
@@ -74,7 +57,6 @@ app.factory("MoviesService", function (APP_CONFIG, $http, $q) {
                 return service.addMovies(result);
             });
         }
-
 
 
         /**

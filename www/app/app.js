@@ -2,7 +2,7 @@
  * The main application module.
  */
 
-var app = angular.module('App', ['ionic', 'ngCordova', 'ui.router', 'ngResource'])
+var app = angular.module('App', ['ionic', 'ngCordova', 'ui.router', 'ngResource', 'googlechart', 'chart.js'])
 
     .run(function ($ionicPlatform, $http, $ionicSideMenuDelegate, $ionicScrollDelegate, $rootScope) {
         $http.defaults.headers.post = {

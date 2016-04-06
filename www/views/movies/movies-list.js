@@ -1,7 +1,7 @@
 app.controller('MoviesListCtrl', function ($scope, MoviesService, $ionicPopup, $ionicListDelegate, $ionicModal, $rootScope) {
         $scope.data = {};
 
-        $scope.data.movies = [];
+        $scope.data.movies = null;
 
         $ionicModal.fromTemplateUrl('./views/movies/slidebox.html', {
             scope: $scope,

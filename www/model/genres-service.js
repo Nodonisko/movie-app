@@ -1,4 +1,4 @@
-app.factory("MoviesGenresService", function (APP_CONFIG, $http, $q) {
+app.factory("MoviesGenresService", function (APP_CONFIG, $http, $q, $resource) {
     return new (function () {
         var service = this;
         service.data = {};
@@ -8,21 +8,13 @@ app.factory("MoviesGenresService", function (APP_CONFIG, $http, $q) {
          * @description Fetch genre list from API
          */
         service.fetchGenreList = function () {
-            var req = {
-                method: "GET",
-                url: APP_CONFIG.getApiUrl("genreList"),
-            }
-
-            return $http(req).then(function (response) {
-                if (!response.data.genres) {
-                    console.error('error - no genre list data in response', response);
-                    return $q.reject(response.data.genres);
+            return $resource(APP_CONFIG.getApiUrl("genreList"), {}, {
+                query: {
+                    isArray: false
                 }
-                console.log('call successful', response.data.genres);
-                return response.data.genres;
-            }, function (error) {
-                console.error('error', error);
-                return $q.reject(error);
+            }).query().$promise.then(function(result){
+                console.log(result);
+                return result.genres;
             });
         }
 
@@ -34,23 +26,16 @@ app.factory("MoviesGenresService", function (APP_CONFIG, $http, $q) {
         service.fetchMoviesByGenre = function (genre, page) {
             var page = page || 1;
 
-            var req = {
-                method: "GET",
-                url: APP_CONFIG.getApiUrl("moviesByGenre", genre) + '&page=' + page
-            }
-
-            return $http(req).then(function (response) {
-                if (!response.data.results) {
-                    console.error('error - no movies data in response', response);
-                    return $q.reject(response.data);
+            return $resource(APP_CONFIG.getApiUrl("moviesByGenre", genre) + '&page=' + page, {}, {
+                query: {
+                    isArray: false
                 }
-                console.log('call successful', response.data);
-                return response.data.results;
-            }, function (error) {
-                console.error('error', error);
-                return $q.reject(error);
+            }).query().$promise.then(function (result) {
+                console.log(result.results);
+                return result.results;
             });
         }
+
         /**
          * @description Return array of all genres
          */

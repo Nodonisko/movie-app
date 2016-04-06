@@ -6,7 +6,8 @@ app.controller('MoviesGenresCtrl', function ($scope, $rootScope, MoviesGenresSer
         $scope.data.genres = result;
         $scope.data.activeGenre = result[0].id;
     }).catch(function (error) {
-        $rootScope.showAlert('Cannot load genre list', 'error');
+        console.log(error);
+        $rootScope.showAlert('Cannot load genre list');
     }).then(function () {
         $rootScope.loadingHide();
     });

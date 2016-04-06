@@ -63,3 +63,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .movie-thumbnail {
   width: 100%;
 }
+
+.chart-legend li, .bar-legend li, .line-legend li, .pie-legend li, .radar-legend li, .polararea-legend li, .doughnut-legend li {
+  display: block;
+  float: left;
+}

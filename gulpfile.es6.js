@@ -14,12 +14,15 @@ import extReplace from 'gulp-ext-replace'
 
 var bowerLibs = {
     js: [
-        'ionic/js/ionic.bundle.min.js',
+        'ionic/release/js/ionic.bundle.min.js',
         'angular-resource/angular-resource.min.js',
         'angular-ui-router/release/angular-ui-router.min.js',
         'ngCordova/dist/ng-cordova.min.js',
         'moment/min/moment.min.js',
-        'moment-timezone/builds/moment-timezone.min.js'
+        'moment-timezone/builds/moment-timezone.min.js',
+        'angular-google-chart/ng-google-chart.js',
+        'Chart.js/Chart.js',
+        'angular-chart.js/dist/angular-chart.js'
     ],
     css: [],
     fonts: [

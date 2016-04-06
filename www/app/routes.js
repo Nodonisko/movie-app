@@ -17,6 +17,11 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, $
             templateUrl: "views/movies/movies-genres.html",
             controller: 'MoviesGenresCtrl'
         })
+        .state('statistics', {
+            url: '/statistics',
+            templateUrl: "views/movies/movies-statistics.html",
+            controller: 'MoviesStatisticsCtrl'
+        })
 
     // states end
     ;

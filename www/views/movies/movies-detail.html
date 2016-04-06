@@ -1,4 +1,4 @@
-<ion-view title="{{movie.title}}" id="view-movies-detail">
+<ion-view id="view-movies-detail" overflow-scroll="true">
     <ion-content>
         <ion-slide-box>
             <ion-slide ng-repeat="image in movie.images.backdrops | orderBy: image.vote_average | limitTo: 4">
@@ -25,6 +25,10 @@
                     <span ng-repeat="cast in movie.credits.crew | limitTo: 10">{{cast.name}}{{$last ? '' : ', '}}</span>
                 </p>
             </ion-item>
+            <ion-item class="item-text-wrap">
+                <h1>Production countries</h1>
+                    <div google-chart chart="chartObject" class="chart-container" agc-on-select="countrySelected(selectedItem)"></div>
+                </ion-item>
             <ion-item>{{movie.vote_average}}/10.00</ion-item>
             <ion-item>
                 <button ng-class="isMovieWatched() ? 'ion-eye-disabled button-assertive' : 'ion-eye button-positive'" class="button icon-left button-block" ng-click="toggleWatched()">
