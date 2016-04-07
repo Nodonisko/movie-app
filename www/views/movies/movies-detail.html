@@ -1,4 +1,4 @@
-<ion-view id="view-movies-detail" overflow-scroll="true">
+<ion-view id="view-movies-detail" overflow-scroll="true" title="{{movie.title}}">
     <ion-content>
         <ion-slide-box>
             <ion-slide ng-repeat="image in movie.images.backdrops | orderBy: image.vote_average | limitTo: 4">

@@ -5,7 +5,6 @@ app.controller('MoviesDetailCtrl', function ($scope, $rootScope, MoviesService, 
         MoviesService.getMovieById(movieId).then(function (result) {
             console.log(result);
             $scope.movie = result;
-            if ($ionicNavBarDelegate.title(result.title)) console.log(result.title);
             $ionicSlideBoxDelegate.update();
             loadCountryChart(result.production_countries);
         }).finally(function () {
