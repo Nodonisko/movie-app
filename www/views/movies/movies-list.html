@@ -1,17 +1,4 @@
-<ion-view title="Movie list" id="view-movies-list" hide-back-button="true" overflow-scroll="true">
-    <ion-nav-buttons side="left">
-        <button class="button button-icon" ng-click="openSlidebox()">
-            <i class="icon ion-help-circled"></i>
-        </button>
-    </ion-nav-buttons>
-    <ion-nav-buttons side="right">
-        <button class="button button-icon" ui-sref="genres()">
-            <i class="icon ion-android-film"></i>
-        </button>
-        <button class="button button-icon" ui-sref="statistics()">
-            <i class="icon ion-stats-bars"></i>
-        </button>
-    </ion-nav-buttons>
+<ion-view title="Movie list" id="view-movies-list" hide-back-button="true">
     <ion-subheader-bar class="bar-energized bar bar-subheader">
         <div class="button-bar">
             <a class="button" ng-click="order = '-popularity'" ng-class="{'active': order == '-popularity'}">Popularity</a>
@@ -27,7 +14,8 @@
             </div>
         </div>
         <ion-list>
-            <ion-item class="item-avatar" ng-repeat="movie in data.movies | filter: searchString | orderBy:order" color-rate="{{movie.vote_average}}" ui-sref="movies-detail({'id': movie.id})">
+            <ion-item class="item-avatar" ng-repeat="movie in data.movies | filter: searchString | orderBy:order"
+                      color-rate="{{movie.vote_average}}" ui-sref="app.movies-detail({'id': movie.id})">
                 <img class="fit-thumbnail" ng-src="http://image.tmdb.org/t/p/w500/{{movie.backdrop_path}}">
                 {{movie.title}}
                 <p>{{movie.vote_average}}</p>

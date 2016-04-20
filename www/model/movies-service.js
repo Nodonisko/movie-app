@@ -13,7 +13,7 @@ app.factory("MoviesService", function (APP_CONFIG, $http, $q, $resource) {
         service.fetchMovies = function (page) {
             var page = page || 1;
 
-            if(page >= 5) return $q.reject('no more pages allowed');
+            //if(page >= 5) return $q.reject('no more pages allowed');
 
             return $resource(APP_CONFIG.getApiUrl("moviesPopular") + '&page=' + page, {}, {
                 query: {

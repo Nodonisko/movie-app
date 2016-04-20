@@ -1,6 +1,6 @@
 <ion-view title="Movies by genre" id="view-movies-genres-list" hide-back-button="true">
     <ion-nav-buttons side="right">
-        <button class="button button-icon" ui-sref="movies()">
+        <button class="button button-icon" ui-sref="menu.movies">
             <i class="icon ion-film-marker"></i>
         </button>
     </ion-nav-buttons>
@@ -15,7 +15,8 @@
         </label>
         {{activeGenre}}
         <ion-list>
-            <ion-item class="item-avatar" ng-repeat="movie in data.movies | filter: searchString | orderBy:order" color-rate="{{movie.vote_average}}" ui-sref="movies-detail({'id': movie.id})">
+            <ion-item class="item-avatar" ng-repeat="movie in data.movies | filter: searchString | orderBy:order"
+                      color-rate="{{movie.vote_average}}" ui-sref="app.movies-detail({'id': movie.id})">
                 <img class="fit-thumbnail" ng-src="http://image.tmdb.org/t/p/w500/{{movie.backdrop_path}}">
                 {{movie.title}}
                 <p>{{movie.vote_average}}</p>

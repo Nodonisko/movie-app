@@ -36,7 +36,10 @@
     "cordova-plugin-splashscreen",
     "com.ionic.keyboard",
     "cordova-plugin-dialogs",
-    "ionic-plugin-keyboard"
+    "ionic-plugin-keyboard",
+    "cordova-plugin-contacts",
+    "cordova-plugin-x-socialsharing",
+    "cordova-plugin-camera"
   ],
   "cordovaPlatforms": [
     "android"

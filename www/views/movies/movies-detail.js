@@ -1,9 +1,8 @@
-app.controller('MoviesDetailCtrl', function ($scope, $rootScope, MoviesService, $stateParams, $ionicNavBarDelegate, $ionicSlideBoxDelegate) {
+app.controller('MoviesDetailCtrl', function ($scope, $rootScope, MoviesService, $ionicModal, $stateParams, $ionicNavBarDelegate, $ionicSlideBoxDelegate, ContactsService, GlobalService) {
     if ($stateParams.id) {
         var movieId = +$stateParams.id;
         $rootScope.loadingShow();
         MoviesService.getMovieById(movieId).then(function (result) {
-            console.log(result);
             $scope.movie = result;
             $ionicSlideBoxDelegate.update();
             loadCountryChart(result.production_countries);
@@ -45,7 +44,51 @@ app.controller('MoviesDetailCtrl', function ($scope, $rootScope, MoviesService, 
 
     }
 
-    $scope.countrySelected = function (country) {
-        console.log(country);
+    $scope.share = function (type) {
+        console.log("test", type);
+        switch (type) {
+            case "twitter" :
+                window.plugins.socialsharing.shareViaTwitter('I love this movie!!! ' + $scope.movie.title, null, null, function () {
+                    console.log('twitter share successful'), function () {
+                        console.log('error no twitter app')
+                    }
+                });
+                break;
+
+            case "email":
+                console.log('sharing email');
+                $rootScope.loadingShow();
+                ContactsService.getContacts().then(function (contacts) {
+                    $scope.contacts = contacts;
+                    $scope.contactsModal.show();
+                    $rootScope.loadingHide();
+                });
+                break;
+
+            default:
+                console.warn('wrong type', type);
+                break;
+        }
+    }
+
+    $ionicModal.fromTemplateUrl('./views/movies/contacts-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.contactsModal = modal;
+    });
+
+    $scope.shareOnEmail = function (contact) {
+        var message = 'Dear ' + contact.name.familyName + ',\nI love this movie!! <3 ' + $scope.movie.title + '';
+        window.plugins.socialsharing.shareViaEmail(
+            message, // can contain HTML tags, but support on Android is rather limited:  http://stackoverflow.com/questions/15136480/how-to-send-html-content-with-image-through-android-default-email-client
+            'Subject',
+            [contact.emails[0].value], // TO: must be null or an array
+            null, // BCC: must be null or an array
+            null, // FILES: can be null, a string, or an array
+            function () { // Success callback
+                $scope.contactsModal.hide();
+            }
+        );
     }
 });

@@ -14,9 +14,12 @@ app.constant("APP_CONFIG", {
         moviesByGenre: "genre/:id/movies"
     },
 
-    getApiUrl: function (endpoint, id){
+    dbMbSize: 5,
+    db: window.openDatabase("movie-app.db", "1.0", "Movie App", this.dbMbSize * 1024 * 1024),
+
+    getApiUrl: function (endpoint, id) {
         var url = this.apiEndpoints[endpoint];
-        if(id) url = url.replace(":id", id);
+        if (id) url = url.replace(":id", id);
 
         return "https://" + this.apiUrl + url + '?api_key=' + this.apiKey;
     },

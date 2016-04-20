@@ -56,7 +56,7 @@ app.factory("MoviesGenresService", function (APP_CONFIG, $http, $q, $resource) {
         }
 
         /**
-         * @description Return array of movies by genre id
+         * @description Return promise array of movies by genre id
          * @param {int} genre id
          */
         service.getMoviesByGenre = function (genre) {
@@ -64,8 +64,7 @@ app.factory("MoviesGenresService", function (APP_CONFIG, $http, $q, $resource) {
                 if (typeof service.data.genresMovies[genre] === 'undefined') {
                     service.fetchMoviesByGenre(genre).then(function (result) {
                         service.data.genresMovies[genre] = result;
-                        console.log('promise', service.data.genresMovies);
-                        resolve(service.data.genresMovies[genre]);
+                        resolve(result);
                     }).catch(function (error) {
                         console.log(error);
                         reject(error);

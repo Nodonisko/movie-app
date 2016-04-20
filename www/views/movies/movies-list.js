@@ -1,22 +1,8 @@
-app.controller('MoviesListCtrl', function ($scope, MoviesService, $ionicPopup, $ionicListDelegate, $ionicModal, $rootScope) {
+app.controller('MoviesListCtrl', function ($scope, $rootScope, MoviesService) {
         $scope.data = {};
-
-        $scope.data.movies = null;
-
-        $ionicModal.fromTemplateUrl('./views/movies/slidebox.html', {
-            scope: $scope,
-            animation: 'slide-in-up'
-        }).then(function (modal) {
-            $scope.slidebox = modal;
-        });
-        $scope.openSlidebox = function () {
-            $scope.slidebox.show();
-        };
-        $scope.closeSlidebox = function () {
-            $scope.slidebox.hide();
-        };
-
+        $scope.data.movies = [];
         $scope.hasMoreMovies = true;
+        $scope.order = '-popularity';
 
         $scope.loadMore = function () {
             MoviesService.getMoreMovies().then(function (result) {
@@ -27,8 +13,6 @@ app.controller('MoviesListCtrl', function ($scope, MoviesService, $ionicPopup, $
                 $scope.hasMoreMovies = false;
             });
         };
-
-        $scope.order = '-popularity';
     })
     .directive('colorRate', function () {
         return {

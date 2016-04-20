@@ -1,31 +1,63 @@
 app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider, $resourceProvider, APP_CONFIG) {
     $httpProvider.interceptors.push('authInterceptorService');
+    $ionicConfigProvider.scrolling.jsScrolling(false);
 
     $stateProvider
-        .state('movies', {
+        .state('app', {
+            url: '/app',
+            templateUrl: "views/menu/menu.html",
+            abstract: true
+        })
+        .state('app.movies', {
             url: '/movies',
-            templateUrl: "views/movies/movies-list.html",
-            controller: 'MoviesListCtrl'
+            views: {
+                'menuContent': {
+                    templateUrl: "views/movies/movies-list.html",
+                    controller: 'MoviesListCtrl'
+                }
+            }
         })
-        .state('movies-detail', {
+        .state('app.movies-detail', {
             url: '/movies/:id',
-            templateUrl: "views/movies/movies-detail.html",
-            controller: 'MoviesDetailCtrl'
+            views: {
+                'menuContent': {
+                    templateUrl: "views/movies/movies-detail.html",
+                    controller: 'MoviesDetailCtrl'
+                }
+            }
         })
-        .state('genres', {
+        .state('app.genres', {
             url: '/genres',
-            templateUrl: "views/movies/movies-genres.html",
-            controller: 'MoviesGenresCtrl'
+            views: {
+                'menuContent': {
+                    templateUrl: "views/movies/movies-genres.html",
+                    controller: 'MoviesGenresCtrl'
+                }
+            }
         })
-        .state('statistics', {
+        .state('app.statistics', {
             url: '/statistics',
-            templateUrl: "views/movies/movies-statistics.html",
-            controller: 'MoviesStatisticsCtrl'
+            views: {
+                'menuContent': {
+                    templateUrl: "views/movies/movies-statistics.html",
+                    controller: 'MoviesStatisticsCtrl'
+                }
+            }
+        })
+        .state('app.profile', {
+            url: '/profile',
+            views: {
+                'menuContent': {
+                    templateUrl: "views/profile/profile.html",
+                    controller: 'ProfileCtrl'
+                }
+            }
         })
 
-    // states end
+
+        // states end
     ;
 
-    $urlRouterProvider.otherwise("/movies");
+    $urlRouterProvider.otherwise("/app/movies");
 
 });
